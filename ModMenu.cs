@@ -4,78 +4,80 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
-namespace ModMenuSpace
+namespace FerlipseMenu
 {
 	// Token: 0x02001605 RID: 5637
-	public class ModMenu : MonoBehaviour
+	public class Ferlipse : MonoBehaviour
 	{
-		// Token: 0x06009432 RID: 37938 RVA: 0x002C8B54 File Offset: 0x002C6D54
+		// Token: 0x06009432 RID: 37938
 		public static void DrawMenu()
 		{
-			ModMenu.buttonStyle = new GUIStyle(GUI.skin.button);
-			ModMenu.buttonStyle.fontSize = 14;
-			ModMenu.buttonStyle.alignment = TextAnchor.MiddleCenter;
-			ModMenu.buttonStyle.normal.textColor = Color.white;
-			ModMenu.buttonStyle.normal.background = ModMenu.MakeTexture(2, 2, new Color(0f, 0.5f, 1f, 0.7f));
-			ModMenu.buttonStyle.hover.background = ModMenu.MakeTexture(2, 2, new Color(0f, 0.6f, 1f, 0.9f));
-			ModMenu.labelStyle = new GUIStyle();
-			ModMenu.labelStyle.fontSize = 15;
-			ModMenu.labelStyle.alignment = TextAnchor.MiddleCenter;
-			ModMenu.labelStyle.normal.textColor = Color.white;
-			ModMenu.labelStyle.normal.background = ModMenu.MakeTexture(2, 2, new Color(0f, 0.5f, 1f, 0.7f));
-			ModMenu.labelStyle.hover.background = ModMenu.MakeTexture(2, 2, new Color(0f, 0.6f, 1f, 0.9f));
-			ModMenu.buttonTexture = ModMenu.MakeTexture(2, 2, new Color(0f, 0.5f, 1f, 0.7f));
-			GUI.Label(new Rect(10f, 10f, 510f, 30f), ModMenu.MenuLabel, ModMenu.labelStyle);
-			if (GUI.Button(new Rect(10f, 50f, 250f, 30f), ModMenu.NoclipLabel, ModMenu.buttonStyle))
+			GUIStyle guistyle = new GUIStyle(GUI.skin.box);
+			guistyle.padding = new RectOffset(10, 10, 10, 10);
+			guistyle.margin = new RectOffset(10, 10, 10, 10);
+			guistyle.normal.background = Ferlipse.MakeTexture(2, 2, new Color(0.114f, 0.118f, 0.153f));
+			Ferlipse.buttonStyle = new GUIStyle(GUI.skin.button);
+			Ferlipse.buttonStyle.fontSize = 14;
+			Ferlipse.buttonStyle.alignment = TextAnchor.MiddleCenter;
+			Ferlipse.buttonStyle.normal.textColor = new Color(0.929f, 0.949f, 0.957f);
+			Ferlipse.buttonStyle.normal.background = Ferlipse.MakeTexture(2, 2, new Color(1f, 0f, 0f));
+			Ferlipse.buttonStyle.hover.background = Ferlipse.MakeTexture(2, 2, new Color(0.8f, 0f, 0f));
+			Ferlipse.labelStyle = new GUIStyle();
+			Ferlipse.labelStyle.fontSize = 15;
+			Ferlipse.labelStyle.alignment = TextAnchor.MiddleCenter;
+			Ferlipse.labelStyle.normal.textColor = new Color(0.784f, 0f, 0.094f);
+			GUILayout.BeginArea(new Rect(0f, 0f, 540f, 300f), guistyle);
+			GUI.Label(new Rect(10f, 10f, 510f, 30f), Ferlipse.MenuLabel, Ferlipse.labelStyle);
+			if (GUI.Button(new Rect(10f, 50f, 250f, 30f), Ferlipse.NoclipLabel, Ferlipse.buttonStyle))
 			{
-				ModMenu.NoclipActive = !ModMenu.NoclipActive;
+				Ferlipse.NoclipActive = !Ferlipse.NoclipActive;
 				Rigidbody component = T17NetView.Find<Player>(2974).gameObject.GetComponent<Rigidbody>();
-				if (ModMenu.NoclipActive)
+				if (Ferlipse.NoclipActive)
 				{
-					ModMenu.NoclipLabel = "Noclip AÇIK";
+					Ferlipse.NoclipLabel = "Noclip AÇIK";
 					component.detectCollisions = false;
 				}
 				else
 				{
-					ModMenu.NoclipLabel = "Noclip KAPALI";
+					Ferlipse.NoclipLabel = "Noclip KAPALI";
 					component.detectCollisions = true;
 				}
 			}
-			if (GUI.Button(new Rect(10f, 90f, 250f, 30f), ModMenu.GodModeLabel, ModMenu.buttonStyle))
+			if (GUI.Button(new Rect(10f, 90f, 250f, 30f), Ferlipse.GodModeLabel, Ferlipse.buttonStyle))
 			{
-				ModMenu.GodModeActive = !ModMenu.GodModeActive;
+				Ferlipse.GodModeActive = !Ferlipse.GodModeActive;
 				CharacterStats component2 = T17NetView.Find<Player>(2974).gameObject.GetComponent<CharacterStats>();
-				if (ModMenu.GodModeActive)
+				if (Ferlipse.GodModeActive)
 				{
-					ModMenu.GodModeLabel = "GodMode AÇIK";
-					component2.GetType().GetField("m_bInfinitePlayerEnergyOn", ModMenu.fieldBindingFlags).SetValue(component2, true);
-					component2.GetType().GetField("m_bInfinitePlayerHealthOn", ModMenu.fieldBindingFlags).SetValue(component2, true);
+					Ferlipse.GodModeLabel = "GodMode AÇIK";
+					component2.GetType().GetField("m_bInfinitePlayerEnergyOn", Ferlipse.fieldBindingFlags).SetValue(component2, true);
+					component2.GetType().GetField("m_bInfinitePlayerHealthOn", Ferlipse.fieldBindingFlags).SetValue(component2, true);
 				}
 				else
 				{
-					ModMenu.GodModeLabel = "GodMode KAPALI";
-					component2.GetType().GetField("m_bInfinitePlayerEnergyOn", ModMenu.fieldBindingFlags).SetValue(component2, false);
-					component2.GetType().GetField("m_bInfinitePlayerHealthOn", ModMenu.fieldBindingFlags).SetValue(component2, false);
+					Ferlipse.GodModeLabel = "GodMode KAPALI";
+					component2.GetType().GetField("m_bInfinitePlayerEnergyOn", Ferlipse.fieldBindingFlags).SetValue(component2, false);
+					component2.GetType().GetField("m_bInfinitePlayerHealthOn", Ferlipse.fieldBindingFlags).SetValue(component2, false);
 				}
 			}
-			if (GUI.Button(new Rect(10f, 130f, 250f, 30f), ModMenu.SpeedHackLabel, ModMenu.buttonStyle))
+			if (GUI.Button(new Rect(10f, 130f, 250f, 30f), Ferlipse.SpeedHackLabel, Ferlipse.buttonStyle))
 			{
-				ModMenu.SpeedHackActive = !ModMenu.SpeedHackActive;
+				Ferlipse.SpeedHackActive = !Ferlipse.SpeedHackActive;
 				CharacterMovement component3 = T17NetView.Find<Player>(2974).gameObject.GetComponent<CharacterMovement>();
-				if (ModMenu.SpeedHackActive)
+				if (Ferlipse.SpeedHackActive)
 				{
-					ModMenu.SpeedHackLabel = "SpeedHack AÇIK";
+					Ferlipse.SpeedHackLabel = "SpeedHack AÇIK";
 					component3.m_fMaxSpeed = 15f;
 				}
 				else
 				{
-					ModMenu.SpeedHackLabel = "SpeedHack KAPALI";
+					Ferlipse.SpeedHackLabel = "SpeedHack KAPALI";
 					component3.m_fMaxSpeed = 4.7f;
 				}
 			}
-			if (GUI.Button(new Rect(10f, 170f, 250f, 30f), ModMenu.UnlockDoorsLabel, ModMenu.buttonStyle))
+			if (GUI.Button(new Rect(10f, 170f, 250f, 30f), Ferlipse.UnlockDoorsLabel, Ferlipse.buttonStyle))
 			{
-				ModMenu.UnlockDoorsLabel = "Tüm Kapıları Açın";
+				Ferlipse.UnlockDoorsLabel = "Tüm Kapıları Açın";
 				foreach (Door door in UnityEngine.Object.FindObjectsOfType<Door>())
 				{
 					T17NetView.Find<Player>(2974).AddAllowedDoor(door, null);
@@ -83,13 +85,13 @@ namespace ModMenuSpace
 					DoorManager.GetInstance().SetUpCharacterKeys(T17NetView.Find<Player>(2974));
 				}
 			}
-			if (GUI.Button(new Rect(10f, 210f, 250f, 30f), ModMenu.LockdownLabel, ModMenu.buttonStyle))
+			if (GUI.Button(new Rect(10f, 210f, 250f, 30f), Ferlipse.LockdownLabel, Ferlipse.buttonStyle))
 			{
-				ModMenu.LockdownActive = !ModMenu.LockdownActive;
+				Ferlipse.LockdownActive = !Ferlipse.LockdownActive;
 				PrisonAlertnessManager instance = PrisonAlertnessManager.GetInstance();
 				if (instance != null)
 				{
-					if (ModMenu.LockdownActive)
+					if (Ferlipse.LockdownActive)
 					{
 						try
 						{
@@ -103,9 +105,9 @@ namespace ModMenuSpace
 					}
 					try
 					{
-						SolitaryManager.GetInstance().GetType().GetMethod("OnAlarm_LockdownEnd", ModMenu.defaultBindingFlags).Invoke(SolitaryManager.GetInstance(), null);
-						SolitaryManager.GetInstance().GetType().GetField("m_bIsLockdownActive", ModMenu.fieldBindingFlags).SetValue(SolitaryManager.GetInstance(), false);
-						SolitaryManager.GetInstance().GetType().GetField("m_LockdownTimer", ModMenu.fieldBindingFlags).SetValue(SolitaryManager.GetInstance(), null);
+						SolitaryManager.GetInstance().GetType().GetMethod("OnAlarm_LockdownEnd", Ferlipse.defaultBindingFlags).Invoke(SolitaryManager.GetInstance(), null);
+						SolitaryManager.GetInstance().GetType().GetField("m_bIsLockdownActive", Ferlipse.fieldBindingFlags).SetValue(SolitaryManager.GetInstance(), false);
+						SolitaryManager.GetInstance().GetType().GetField("m_LockdownTimer", Ferlipse.fieldBindingFlags).SetValue(SolitaryManager.GetInstance(), null);
 						instance.StopCoroutine("HUD.Routine.Lockdown");
 						Debug.LogWarning("[Trainer] Kilitlemeyi Etkin Değil olarak değiştirin: " + instance.GetCurrentAlertness().ToString());
 					}
@@ -115,7 +117,7 @@ namespace ModMenuSpace
 					}
 				}
 			}
-			if (GUI.Button(new Rect(270f, 50f, 250f, 30f), ModMenu.DogLabel, ModMenu.buttonStyle))
+			if (GUI.Button(new Rect(270f, 50f, 250f, 30f), Ferlipse.DogLabel, Ferlipse.buttonStyle))
 			{
 				DogEventManager dogEventManager = UnityEngine.Object.FindObjectOfType<DogEventManager>();
 				if (dogEventManager != null)
@@ -135,13 +137,13 @@ namespace ModMenuSpace
 					Debug.Log("[Trainer] Köpekleri Çağırın");
 				}
 			}
-			if (GUI.Button(new Rect(270f, 90f, 250f, 30f), ModMenu.HittableDogsLabel, ModMenu.buttonStyle))
+			if (GUI.Button(new Rect(270f, 90f, 250f, 30f), Ferlipse.HittableDogsLabel, Ferlipse.buttonStyle))
 			{
-				ModMenu.HittableDogsActive = !ModMenu.HittableDogsActive;
+				Ferlipse.HittableDogsActive = !Ferlipse.HittableDogsActive;
 				UnityEngine.Object.FindObjectOfType<DogEventManager>();
-				if (ModMenu.HittableDogsActive)
+				if (Ferlipse.HittableDogsActive)
 				{
-					ModMenu.HittableDogsLabel = "Vurulabilir Köpekler AÇIK";
+					Ferlipse.HittableDogsLabel = "Vurulabilir Köpekler AÇIK";
 					using (List<AICharacter>.Enumerator enumerator2 = NPCManager.GetInstance().m_Doggies.GetEnumerator())
 					{
 						while (enumerator2.MoveNext())
@@ -152,32 +154,32 @@ namespace ModMenuSpace
 						return;
 					}
 				}
-				ModMenu.HittableDogsLabel = "Vurulabilir Köpekler KAPALI";
+				Ferlipse.HittableDogsLabel = "Vurulabilir Köpekler KAPALI";
 				foreach (AICharacter aicharacter3 in NPCManager.GetInstance().m_Doggies)
 				{
 					((AICharacter_Dog)aicharacter3).gameObject.GetComponent<AIPlayer>().m_CharacterRole = CharacterRole.Dog;
 				}
 			}
-			if (GUI.Button(new Rect(270f, 130f, 250f, 30f), ModMenu.ElectricFencesLabel, ModMenu.buttonStyle))
+			if (GUI.Button(new Rect(270f, 130f, 250f, 30f), Ferlipse.ElectricFencesLabel, Ferlipse.buttonStyle))
 			{
-				ModMenu.ElectricFencesActive = !ModMenu.ElectricFencesActive;
+				Ferlipse.ElectricFencesActive = !Ferlipse.ElectricFencesActive;
 				PrisonPowerManager instance2 = PrisonPowerManager.GetInstance();
 				if (instance2 != null)
 				{
 					List<PrisonPowerManager.GeneratorData> generators = instance2.m_Generators;
-					for (int j = 0; j < generators.Count; j++)
+					for (int i = 0; i < generators.Count; i++)
 					{
-						List<ElectricFence> electricFences = generators.ElementAt(j).m_ElectricFences;
-						for (int k = 0; k < electricFences.Count; k++)
+						List<ElectricFence> electricFences = generators.ElementAt(i).m_ElectricFences;
+						for (int j = 0; j < electricFences.Count; j++)
 						{
-							ElectricFence electricFence = electricFences.ElementAt(k);
-							electricFence.SetEnabled(ModMenu.ElectricFencesActive);
+							ElectricFence electricFence = electricFences.ElementAt(j);
+							electricFence.SetEnabled(Ferlipse.ElectricFencesActive);
 							Debug.LogWarning("[Trainer] Elektrikli Çit Durum Değişikliği: " + electricFence.gameObject.name);
 						}
 					}
 				}
 			}
-			if (GUI.Button(new Rect(270f, 170f, 250f, 30f), "Tüm Kapıların Kilidini Açın", ModMenu.buttonStyle))
+			if (GUI.Button(new Rect(270f, 170f, 250f, 30f), "Tüm Kapıların Kilidini Açın", Ferlipse.buttonStyle))
 			{
 				foreach (Door door2 in UnityEngine.Object.FindObjectsOfType<Door>())
 				{
@@ -185,15 +187,15 @@ namespace ModMenuSpace
 					T17NetView.Find<Player>(2974).AddAllowedDoor(door2, null);
 				}
 			}
-			if (GUI.Button(new Rect(270f, 210f, 250f, 30f), "Tüm NPC'ler Vurulabilir", ModMenu.buttonStyle))
+			if (GUI.Button(new Rect(270f, 210f, 250f, 30f), "Tüm NPC'ler Vurulabilir", Ferlipse.buttonStyle))
 			{
 				AIPlayer[] array2 = UnityEngine.Object.FindObjectsOfType<AIPlayer>();
-				for (int l = 0; l < array2.Length; l++)
+				for (int k = 0; k < array2.Length; k++)
 				{
-					array2[l].m_CharacterRole = CharacterRole.Inmate;
+					array2[k].m_CharacterRole = CharacterRole.Inmate;
 				}
 			}
-			if (GUI.Button(new Rect(10f, 250f, 510f, 30f), ModMenu.MaxPlayerStatsLabel, ModMenu.buttonStyle))
+			if (GUI.Button(new Rect(10f, 250f, 510f, 30f), Ferlipse.MaxPlayerStatsLabel, Ferlipse.buttonStyle))
 			{
 				ConfigManager instance3 = ConfigManager.GetInstance();
 				CharacterStats component4 = T17NetView.Find<Player>(2974).gameObject.GetComponent<CharacterStats>();
@@ -224,32 +226,33 @@ namespace ModMenuSpace
 					playerConfig.m_HeatDecayRate = 1000f;
 				}
 			}
+			GUILayout.EndArea();
 		}
 
-		// Token: 0x06009434 RID: 37940 RVA: 0x002C959C File Offset: 0x002C779C
-		static ModMenu()
+		// Token: 0x06009434 RID: 37940
+		static Ferlipse()
 		{
-			ModMenu.MenuLabel = "Ferlipse";
-			ModMenu.MenuVisible = false;
-			ModMenu.MaxPlayerStatsLabel = "Maksimum Oyuncu İstatistikleri";
-			ModMenu.NoclipActive = false;
-			ModMenu.GodModeActive = false;
-			ModMenu.NoclipLabel = "Noclip OFF";
-			ModMenu.SpeedHackActive = false;
-			ModMenu.SpeedHackLabel = "SpeedHack KAPALI";
-			ModMenu.UnlockDoorsLabel = "Tüm Kapıları Aç";
-			ModMenu.LockdownLabel = "Lockdown OFF";
-			ModMenu.GodModeLabel = "GodMode KAPALI";
-			ModMenu.LockdownActive = false;
-			ModMenu.DogLabel = "Köpekleri Devre Dışı Bırak";
-			ModMenu.GiveLabel = "Duvarı Yok Etme Aracı Ver";
-			ModMenu.GiveStaffKeyLabel = "Personel Anahtarı Ver";
-			ModMenu.HittableDogsLabel = "Vurulabilir Köpekler KAPALI";
-			ModMenu.ElectricFencesActive = false;
-			ModMenu.ElectricFencesLabel = "Elektrikli Çitler";
+			Ferlipse.MenuLabel = "Ferlipse";
+			Ferlipse.MenuVisible = false;
+			Ferlipse.MaxPlayerStatsLabel = "Maksimum Oyuncu İstatistikleri";
+			Ferlipse.NoclipActive = false;
+			Ferlipse.GodModeActive = false;
+			Ferlipse.NoclipLabel = "Noclip OFF";
+			Ferlipse.SpeedHackActive = false;
+			Ferlipse.SpeedHackLabel = "SpeedHack KAPALI";
+			Ferlipse.UnlockDoorsLabel = "Tüm Kapıları Aç";
+			Ferlipse.LockdownLabel = "Lockdown OFF";
+			Ferlipse.GodModeLabel = "GodMode KAPALI";
+			Ferlipse.LockdownActive = false;
+			Ferlipse.DogLabel = "Köpekleri Devre Dışı Bırak";
+			Ferlipse.GiveLabel = "Duvarı Yok Etme Aracı Ver";
+			Ferlipse.GiveStaffKeyLabel = "Personel Anahtarı Ver";
+			Ferlipse.HittableDogsLabel = "Vurulabilir Köpekler KAPALI";
+			Ferlipse.ElectricFencesActive = false;
+			Ferlipse.ElectricFencesLabel = "Elektrikli Çitler";
 		}
 
-		// Token: 0x06009435 RID: 37941 RVA: 0x002C9660 File Offset: 0x002C7860
+		// Token: 0x06009435 RID: 37941
 		private static Texture2D MakeTexture(int width, int height, Color color)
 		{
 			Color[] array = new Color[width * height];
